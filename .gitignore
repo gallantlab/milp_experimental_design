@@ -1,0 +1,7 @@
+*.pyc
+*.egg-info
+gurobi.log
+.ipynb_checkpoints
+notebooks/*
+
+data/*
