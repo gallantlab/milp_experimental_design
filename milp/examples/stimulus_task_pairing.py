@@ -35,6 +35,8 @@ def plot_image_task_pairings(X_solution, show_title=True, show_labels=True):
 
 def plot_repeats_per_stimulus(X_solution, show_title=True, show_labels=True,
                               color=None):
+    print('Figure 3B:')
+
     if color is None:
         color = 'red'
 
@@ -84,6 +86,8 @@ def plot_target_probabilities_for_each_task(
 
 def plot_error_histogram(X_solution, F, show_title=True, show_labels=True,
                          color=None):
+    print('Figure 3D:')
+
     if color is None:
         color = 'red'
 
@@ -106,7 +110,7 @@ def plot_error_histogram(X_solution, F, show_title=True, show_labels=True,
     if show_title:
         plt.title(
             'deviation from target feature means within each task (total='
-            + str(round(abs_delta_sum, 5))
+            + str(round(abs_delta_sum, 5))[:5]
             + ')',
             fontsize=plt.rcParams['figure.titlesize']
         )
@@ -383,6 +387,8 @@ def get_random_solution_stimulus_pairing(
 
 def plot_task_target_frequencies(F, X_solution, show_title=True,
                                  show_labels=True):
+    print('Figure 3C:')
+
     n_tasks, n_stimuli = F.shape
     unique_values = list(np.unique(F))
     n_feature_levels = len(unique_values)

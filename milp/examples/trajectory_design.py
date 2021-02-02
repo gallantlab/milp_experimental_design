@@ -482,6 +482,7 @@ def plot_target_vs_actual_repeats_per_node(counts, n_repeats_pmf, n_nodes,
                                            show_title=True, show_labels=True,
                                            show_legend=True,
                                            n_shown_repeats=None):
+    print('Figure 6C:')
 
     if n_shown_repeats is None:
         n_shown_repeats = len(counts)
@@ -537,6 +538,7 @@ def plot_target_vs_actual_repeats_per_node(counts, n_repeats_pmf, n_nodes,
 
 def plot_distance_distribution(distances, show_title=True, show_labels=True,
                                color=None):
+    print('Figure 6D:')
     if color is None:
         color = 'black'
     plt.hist(distances.flatten(), 15, color=color)
@@ -836,6 +838,7 @@ def plot_summary(distances, n_repeats, n_repeats_pmf, n_nodes, repeat_counts,
         print('saved to', save_path)
     plt.show()
 
+    print('Figure 6E:')
     plt.figure(figsize=figsize)
     plot_actual_vs_target_distribution(
         trajectory,
@@ -852,6 +855,7 @@ def plot_summary(distances, n_repeats, n_repeats_pmf, n_nodes, repeat_counts,
         print('saved to', save_path)
     plt.show()
 
+    print('Figure 6F:')
     plt.figure(figsize=figsize)
     plot_actual_vs_target_distribution(
         random_paths['best_path'],

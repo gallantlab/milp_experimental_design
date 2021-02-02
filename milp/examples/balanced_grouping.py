@@ -112,8 +112,8 @@ def compute_best_of_n(n):
     randomization_ds = np.zeros(n, dtype=np.float32)
     for i in range(n):
 
-        if i != 0 and i % int(n / 10.0) == 0:
-            print('completed', i, 'trials')
+        # if i != 0 and i % int(n / 10.0) == 0:
+        #     print('completed', i, 'trials')
 
         items = list(range(I))
         np.random.shuffle(items)
@@ -185,6 +185,7 @@ def plot_luminances(F):
 def plot_luminance_distribution(
     F, plot_mean=False, color=None, show_title=True, show_labels=True,
 ):
+    print('Figure 2B:')
 
     plt.hist(F[0, :], 19, color=color)
     if plot_mean:
@@ -261,6 +262,7 @@ def plot_global_feature_deviations_color(X_solution, F):
 
 def plot_global_feature_deviations_bar(X_solution, F, show_title=True,
                                        show_labels=True, color=None):
+    print('Figure 2C:')
     I, G = X_solution.shape
     m_solution = F.dot(X_solution) / (I / float(G))
     global_feature_mean = F.mean(1)
@@ -376,6 +378,8 @@ def plot_randomization(F, X_solution, randomization_ds, axis=None, n=None,
                        show_title=True, show_labels=True, show_legend=True,
                        sci_y=True):
 
+    print('Figure 2D:')
+
     if milp_color is None:
         milp_color = 'red'
     if random_color is None:
@@ -405,7 +409,7 @@ def plot_randomization(F, X_solution, randomization_ds, axis=None, n=None,
         title = (
             'MILP vs '
             + '1e'
-            + str(int(np.log10(1e6)))
+            + str(int(np.log10(n)))
             + ' Randomized Solutions'
         )
     else:

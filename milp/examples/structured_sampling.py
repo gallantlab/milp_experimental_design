@@ -126,6 +126,8 @@ def get_coding_matrices(noun_semantic_tree, n_total_trials,
 
 
 def plot_P(P, show_title=True, show_labels=True):
+    print('Figure 5B:')
+
     plt.imshow(P, cmap='bwr', vmin=-1, vmax=1, aspect='auto')
     plt.gca().xaxis.set_ticks_position('bottom')
     if show_labels:
@@ -142,6 +144,7 @@ def plot_P(P, show_title=True, show_labels=True):
 
 
 def plot_uses_per_question_template(P, show_title=True, show_labels=True):
+    print('Figure 5E:')
     plt.hist(P.sum(1), 31, range=[-0.5, 30.5], color='red')
     if show_title:
         plt.title(
@@ -155,6 +158,7 @@ def plot_uses_per_question_template(P, show_title=True, show_labels=True):
 
 
 def plot_uses_per_concrete_noun(P, show_title=True, show_labels=True):
+    print('Figure 5F:')
     plt.hist(P.sum(0), 16, range=[-0.5, 15.5], color='red')
     if show_title:
         plt.title(
@@ -170,6 +174,7 @@ def plot_uses_per_concrete_noun(P, show_title=True, show_labels=True):
 def plot_groups_by_question_templates(
     PMT, show_title=True, show_labels=True, show_colorbar=True,
 ):
+    print('Figure 5D:')
     colormap = plt.cm.get_cmap('nipy_spectral')
     reversed_colormap = colormap.reversed()
     reversed_colormap.set_under('w')
@@ -204,6 +209,8 @@ def plot_noun_group_membership(M, show_title=True, show_labels=True):
 
 
 def plot_template_group_compatibility(C, show_title=True, show_labels=True):
+    print('Figure 5C:')
+    print()
     plt.imshow(C, cmap='Greys', aspect='auto')
     plt.gca().xaxis.set_ticks_position('bottom')
     if show_title:
@@ -220,6 +227,8 @@ def plot_template_group_compatibility(C, show_title=True, show_labels=True):
 
 def plot_noun_template_compatibility(CM, show_title=True, show_labels=True,
                                      imshow_kwargs=None):
+    print('Figure 5A:')
+
     if imshow_kwargs is None:
         imshow_kwargs = {'cmap': 'Greys', 'aspect': 'auto'}
     plt.imshow(CM, **imshow_kwargs)
