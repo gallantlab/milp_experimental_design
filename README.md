@@ -14,7 +14,8 @@ Each mixed integer linear program is constructed using the same basic workflow:
 
 ```python
 import milp
-program = milp.program.initialize_program()```
+program = milp.program.initialize_program()
+```
 
 #### 2. Add Variables
 
