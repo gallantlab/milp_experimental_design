@@ -1,5 +1,6 @@
 
 def setup_plot_formatting():
+    """set up matplotlib plot formatting"""
 
     # adapted from https://stackoverflow.com/a/39566040
 

@@ -25,12 +25,12 @@ def add_variable(
 ):
     """add variable to program
 
-    # Inputs
-    - program: dict of MIP program
+    ## Inputs
+    - program: dict of milp program generated using initialize_program()
     - name: str of variable name
-    - variable_type: should be one of {bool, int, float}
-    - lower_bound: number lower bound of variable
-    - upper_bound: number upper bound of variable
+    - variable_type: {bool, int, float} for boolean, integer, or real variables
+    - lower_bound: int or float lower bound of variable
+    - upper_bound: int or float upper bound of variable
     """
     if name in program['variables']:
         raise Exception('variable already exists:' + str(name))
@@ -51,6 +51,13 @@ def add_constraint(program, A_eq=None, b_eq=None, A_lt=None, b_lt=None):
     - A_eq / A_lt are the lhs of the equation
     - b_eq / b_lt are the rhs of the equation
     - A_X should be in the form of {variable_name: coefficient_value}
+
+    ## Inputs
+    - program: dict of milp program generated using initialize_program()
+    - A_eq: dict of equality constraint coefficients
+    - b_eq: int or float of constant value for equality constraint
+    - A_lt: dict of inequality constraint coefficients
+    - b_lt: int or float of constant value for inequality constraint
     """
     if A_eq is not None and b_eq is not None and A_lt is None and b_lt is None:
         program['constraints']['A_eq'].append(A_eq)
@@ -65,7 +72,12 @@ def add_constraint(program, A_eq=None, b_eq=None, A_lt=None, b_lt=None):
 
 
 def add_cost_terms(program, coefficients):
-    """add cost terms to program"""
+    """add cost terms to program
+
+    ## Inputs
+    - program: dict of milp program generated using initialize_program()
+    - coefficients: dict of cost term coefficients
+    """
     for variable_name, coefficient in coefficients.items():
         program['cost_function'].setdefault(variable_name, 0)
         program['cost_function'][variable_name] += coefficient
@@ -75,9 +87,9 @@ def add_abs_cost_term(program, coefficients, constant=0):
     """add a term to the cost function (in place)
 
     - term will look like abs(variables.dot(coefficients) + constant)
-    - coefficients + constant <= name
+    - (coefficients + constant) <= name
         --> coefficients - name <= -constant
-    - -coefficients + -constant <= name
+    - (-coefficients + -constant) <= name
         --> -coefficients - name <= constant
     """
 
@@ -109,7 +121,13 @@ def add_abs_cost_term(program, coefficients, constant=0):
 
 
 def store_constant(program, name, value):
-    """store constant for later reference"""
+    """store constant for later reference
+
+    ## Inputs
+    - program: dict of milp program generated using initialize_program()
+    - name: str name of constant
+    - value: float or int value of constant
+    """
     if name in program['constants']:
         raise Exception('constant already exists: ' + str(name))
     else:
@@ -117,7 +135,14 @@ def store_constant(program, name, value):
 
 
 def solve_MILP(program, solver='gurobi', verbose=True, **kwargs):
-    """solve MILP"""
+    """solve MILP
+
+    ## Inputs
+    - program: dict of milp program generated using initialize_program()
+    - solver: str name of solver, right now either 'gurobi' or 'cplex'
+    - verbose: bool of whether to be verbose
+    - kwargs: kwargs specific to solver
+    """
 
     # print program information
     if verbose:
@@ -139,7 +164,12 @@ def solve_MILP(program, solver='gurobi', verbose=True, **kwargs):
 
 
 def solve_MILP_cplex(program, verbose=True):
-    """solve MILP using cplex"""
+    """solve MILP using cplex
+
+    ## Inputs
+    - program: dict of milp program generated using initialize_program()
+    - verbose: bool of whether to be verbose
+    """
 
     import docplex.mp.model
 
@@ -208,7 +238,13 @@ def solve_MILP_cplex(program, verbose=True):
 
 
 def solve_MILP_gurobi(program, verbose=True, parameters=None):
-    """solve MILP using gurobi"""
+    """solve MILP using gurobi
+
+    ## Inputs
+    - program: dict of milp program generated using initialize_program()
+    - verbose: bool of whether to be verbose
+    - parameters: dict of gurobi-specific parameters
+    """
 
     import gurobipy
 
@@ -284,7 +320,13 @@ def solve_MILP_gurobi(program, verbose=True, parameters=None):
 
 
 def get_variables(program, name, *parameters):
-    """get all variables matching an indexed variable"""
+    """get all variables matching an indexed variable
+
+    ## Inputs
+    - program: dict of milp program generated using initialize_program()
+    - name: str name of indexed variables
+    - parameters: list of specific index values to return
+    """
 
     variables = []
     for variable in program['variables'].keys():
@@ -307,17 +349,32 @@ def get_variables(program, name, *parameters):
 
 
 def get_solution_variable(solution, name):
-    """get variable within a solution"""
+    """get variable within a solution
+
+    ## Inputs
+    - solution: dict of solution obtained with solve_MILP()
+    - name: str name of variable
+    """
     return get_named_quantity(solution['variables'], name)
 
 
 def get_solution_constant(solution, name):
-    """get constant within a solution"""
+    """get constant within a solution
+
+    ## Inputs
+    - solution: dict of solution obtained with solve_MILP()
+    - name: str name of constant
+    """
     return get_named_quantity(solution['program']['constants'], name)
 
 
 def get_named_quantity(some_dict, name):
-    """get named quantity within a solution"""
+    """get named quantity within a solution
+
+    ## Inputs
+    - some_dict: dict, usually solution['program']['constants']
+    - name: str name of quantity to obtain
+    """
 
     # scalar variable
     if name in some_dict:
