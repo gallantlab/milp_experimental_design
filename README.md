@@ -42,7 +42,7 @@ milp.program.add_variable(
 
 #### 3.  Add Linear Constraints
 
-`milp.program.add_constraint()` adds a linear constraint to program. An equality constraint can be specified by using arguments `A_eq` and `b_eq`. The value of `A_eq` should be a dictionary whose keys are variable names and whose values are coefficients of those variables. Inequality constraints can be specified by using either `A_lt` and `b_lt`, or `A_gt` and `b_gt`. 
+`milp.program.add_constraint()` adds a linear constraint to program. An equality constraint can be specified by using arguments `A_eq` and `b_eq`. The value of `A_eq` should be a dictionary whose keys are variable names and whose values are coefficients of those variables. Inequality constraints can be specified by using `A_lt` and `b_lt`.
 
 ```python
 milp.program.add_constraint(
